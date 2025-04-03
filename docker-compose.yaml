@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  springboot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - MONGO_DB_HOSTNAME=mongo
+      - MONGO_DB_USERNAME=admin
+      - MONGO_DB_PASSWORD=admin@123
+    ports:
+      - 8080:8080
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+    networks:
+      - springappnetwork
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin@123
+    volumes:
+      - mongodb:/data/db
+    restart: always
+    networks:
+      - springappnetwork
+    ports:
+      - "27017:27017"  # Exposes MongoDB outside of Docker
+volumes:
+  mongodb:
+    external: true
+
+networks:
+  springappnetwork:
+    external: true
+
