@@ -9,14 +9,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	@Id
+    private static final long serialVersionUID = 1L;
+
+    @Id
     private String id;
     private String firstName;
     private String lastName;
     private String email;
 
+    // Default no-argument constructor (required for Jackson)
+    public User() {
+    }
+
+    // All-args constructor
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -59,6 +64,7 @@ public class User implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
         return Objects.equals(id, user.id) &&
                 Objects.equals(firstName, user.firstName) &&
@@ -71,3 +77,4 @@ public class User implements Serializable {
         return Objects.hash(id, firstName, lastName, email);
     }
 }
+
