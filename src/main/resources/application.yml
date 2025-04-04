@@ -1,13 +1,38 @@
 spring:
   data:
     mongodb:
-      host: 127.0.0.1
+      #In Case of mongodb Repel Set
+      #uri: mongodb://${MONGO_DB_HOSTNAME}:${MONGO_DB_PASSWORD}@mongod-0.mongodb:27017,mongod-1.mongodb:27017,mongod-2.mongodb:27017/users
+      host: ${MONGO_DB_HOSTNAME}
       port: 27017
-      username: newuser
-      password: newuserpassword
+      username: ${MONGO_DB_USERNAME}
+      password: ${MONGO_DB_PASSWORD}
       database: users
       authentication-database: admin
 
 server:
   port: 8080
 
+
+
+#spring:
+#  data:
+#    mongodb:
+#      host: 127.0.0.1
+#      port: 27017
+#      username: newuser
+#      password: newuserpassword
+#      database: users
+#      authentication-database: admin
+#
+#server:
+#  port: 8080
+
+
+
+# This is the IP address of the MongoDB server. '127.0.0.1' means the app connects to MongoDB running on the same machine (localhost).
+# The default port on which MongoDB listens for connections.
+# The MongoDB username used for authentication.
+# The password corresponding to the above username.
+# The database the application will connect to and perform operations on.
+# The database where the user's credentials are stored; typically 'admin' is used for authentication.
